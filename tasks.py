@@ -98,3 +98,13 @@ for entry in tables:
 ------------------------------------------------------------------------------------------------------------
 To access Quote Tables outside of Quote use SQL Queary like this (QT_your_quotTable_name)
  tables = SqlHelper.GetList("select * from QT__Quote_Details")
+------------------------------------------------------------------------------------------------------------
+Query to get Quotes based on quote type and product_id
+# cart ==== USERID,CART_ID
+# cart2 ==== CartId, OwnerId, CartCompositeNumber
+# SCPARAMS ==== CART_ID, USERID, PARAMID, #
+# cart_item ==== userid, cart_id, product_id
+typeC = "Contract Renewal"
+#tables = SqlHelper.GetList("select * from cart_item where Product_id = 523387")
+tables = SqlHelper.GetList("select c2.CartCompositeNumber, sc.CONTENT from cart c join cart2 c2 on c.userid = c2.OwnerId and c.cart_id = c2.cartid join scparams sc on sc.userid = c.userid and sc.cart_id = c.cart_id join cart_item ci on ci.userid = c.userid and ci.cart_id = c.cart_id where sc.paramid = 82 and ci.product_id = 523387 and sc.CONTENT = '" +typeC+ "'")
+--------------------------------------------------------------------------------------------------------------

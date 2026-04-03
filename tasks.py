@@ -91,3 +91,10 @@ GETTING PRODUCT TYPE OF PRODUCT
 
 productTypes = SqlHelper.GetFirst('select a.PRODUCTTYPE_NAME  from products as p inner join PRODUCT_TYPES_DEFN as a on p.PRODUCTTYPE_CD = A.PRODUCTTYPE_CD ')
 _______________________________________________________________________________________________________
+to get system tables
+tables = SqlHelper.GetList("select top 1000 * from (select *, ROW_NUMBER() over (order by object_id) as r_n_n from sys.tables) xx where r_n_n >=2001")
+for entry in tables:
+    Trace.Write(str(entry.name))
+------------------------------------------------------------------------------------------------------------
+To access Quote Tables outside of Quote use SQL Queary like this (QT_your_quotTable_name)
+ tables = SqlHelper.GetList("select * from QT__Quote_Details")

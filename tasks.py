@@ -102,9 +102,15 @@ To access Quote Tables outside of Quote use SQL Queary like this (QT_your_quotTa
 Query to get Quotes based on quote type and product_id
 # cart ==== USERID,CART_ID
 # cart2 ==== CartId, OwnerId, CartCompositeNumber
-# SCPARAMS ==== CART_ID, USERID, PARAMID, #
+# SCPARAMS ==== CART_ID, USERID, PARAMID,
 # cart_item ==== userid, cart_id, product_id
-typeC = "Contract Renewal"
-#tables = SqlHelper.GetList("select * from cart_item where Product_id = 523387")
-tables = SqlHelper.GetList("select c2.CartCompositeNumber, sc.CONTENT from cart c join cart2 c2 on c.userid = c2.OwnerId and c.cart_id = c2.cartid join scparams sc on sc.userid = c.userid and sc.cart_id = c.cart_id join cart_item ci on ci.userid = c.userid and ci.cart_id = c.cart_id where sc.paramid = 82 and ci.product_id = 523387 and sc.CONTENT = '" +typeC+ "'")
+# Quotes ==== cartid, userid,datecreated
+typeC = "Projects"
+year, month, day = 2026, 4, 1
+date = DateTime(year, month, day)
+#testTable = SqlHelper.GetList("select * from Quotes where cartid = 21889318")
+tables = SqlHelper.GetList("select c2.CartCompositeNumber, sc.CONTENT,Q.datecreated from cart2 c2 join scparams sc on sc.userid = c2.ownerid and sc.cart_id = c2.cartid join cart_item ci on ci.userid = c2.ownerid and ci.cart_id = c2.cartid join Quotes q on c2.CartCompositeNumber = q.cartid and c2.ownerid = q.userid where sc.paramid = 82 and ci.product_id = 499827 and sc.CONTENT = '" +typeC+ "' and q.datecreated >'"+str(date)+"'")
+for rec in tables:
+    Trace.Write("Quote Number ===	" + str(rec.CartCompositeNumber)+"		date created ====	"+str(rec.datecreated))
+
 --------------------------------------------------------------------------------------------------------------

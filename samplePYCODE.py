@@ -16,3 +16,9 @@ Get attribute Name from Console
 
 ko.contextFor($0).$data.name()
 ===================================================================================================================
+Get VC payload - 1.0
+
+for item in Quote.Items:
+    if item.RolledUpQuoteItem == "give_your_RolledUPQuoteItem_number_here":
+        x = item.AsMAinItem.VCPricingPayload
+===================================================================================================================

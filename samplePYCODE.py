@@ -1,4 +1,4 @@
-Print all container data
+#Print all container data
 colms = []
 cont = Product.GetContainerByName("SC_Models_Scope").Rows
 for row in cont:
